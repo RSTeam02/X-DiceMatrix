@@ -53,6 +53,7 @@ class Controller {
     /*every dice has its own worker to calc random roll length, no shuffle of faces required 
     => different roll length, random dice results */
     roll() {
+        this.resetPts();
         this.worker = [];
         for (let i = 0; i < this.numOfDice; i++) {
             this.worker[i] = new Worker("worker/webworkerRndLen.js");
