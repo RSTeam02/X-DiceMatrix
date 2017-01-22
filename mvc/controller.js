@@ -71,6 +71,6 @@ class Controller {
     }
     resetPts() {
         this.view.res = 0;
-        this.view.ptsInfo(this.view.res);
+        this.view.ptsInfo();
     }
 }

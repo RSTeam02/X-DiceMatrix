@@ -28,7 +28,7 @@ class View {
         document.getElementById(`${i}`).innerHTML = face;
     }
 
-    ptsInfo(pts) {
+    ptsInfo(pts = 0) {
         this.res += pts;
         document.getElementById("pts").innerHTML = `${this.res} pts.`;
     }
