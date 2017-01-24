@@ -6,18 +6,24 @@ class Controller {
 
     constructor() {
         this.view = new View();
+        this.classRbSet = document.getElementsByClassName("rbSet");
+        this.initSetting();
         this.btnListener();
         this.numOfDice = 0;
-        this.diceSet = [];
     }
 
     initDices() {
         this.resetPts();
         //n dice instances dependent on matrixSize
         for (let i = 0; i < this.numOfDice; i++) {
-            this.diceSet[i] = new Dice();
-            this.view.viewDice(this.diceSet[i].faces[Math.floor(Math.random() * 6)], i);
+            this.view.viewDice(this.diceFace[Math.floor(Math.random() * 6)], i);
         }
+    }
+
+    initSetting() {
+        (document.getElementById("dface").checked)
+            ? this.diceFace = ["\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"]
+            : this.diceFace = "123456".split("");
     }
 
     //read string from input field
@@ -27,6 +33,12 @@ class Controller {
     }
 
     btnListener() {
+        for (let i = 0; i < this.classRbSet.length; i++) {
+            this.classRbSet[i].addEventListener("click", () => {
+                this.initSetting();
+            });
+        }
+
         document.getElementById("roll").addEventListener("click", () => {
             this.roll();
         });
@@ -46,7 +58,6 @@ class Controller {
             } catch (error) {
                 info.innerHTML = error;
             }
-
         });
     }
 
@@ -65,10 +76,11 @@ class Controller {
                 if (event.data[1]) {
                     this.view.ptsInfo(face + 1);
                 }
-                this.view.viewDice(this.diceSet[i].faces[face], i);
+                this.view.viewDice(this.diceFace[face], i);
             }
         }
     }
+
     resetPts() {
         this.view.res = 0;
         this.view.ptsInfo();

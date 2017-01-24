@@ -2,12 +2,13 @@
 <html>
 
 <head>
-
     <meta charset="utf-8">
     <title>Dice - Worker</title>
     <style>
-        table {
-            font-size: 40px;
+        th,
+        td {
+            font-size: 3em;
+            padding-right: .6em;
         }
     </style>
 </head>
@@ -21,6 +22,11 @@
             e.g. 10x10
             <div id="info"></div>
         </fieldset>
+        <fieldset>
+            <legend>Display</legend>
+            <input class="rbSet" type="radio" id="dface" name="format" checked>diceface</input>
+            <input class="rbSet" type="radio" id="dec" name="format">integer</input>
+        </fieldset>
         <input type="button" id="generateBtn" value="create matrix"></input>
         <input type="button" value="roll" id="roll">
     </form>
@@ -29,9 +35,6 @@
     </table>
 
     <p id="pts">0 pts.</p>
-
-
-
     <script src="http://requirejs.org/docs/release/1.0.8/minified/require.js" data-main="import/class.js" type="text/javascript"></script>
 </body>
 
