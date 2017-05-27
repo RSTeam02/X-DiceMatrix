@@ -8,7 +8,7 @@ class View {
         this.res = 0;
     }
 
-    createDiceMatrix(m, n) {
+    createDiceMatrix(n, m) {
         let row = document.getElementById("diceTable");
         let table = "";
         let diceNo = 0;

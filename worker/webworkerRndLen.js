@@ -1,17 +1,19 @@
 //calculate random roll length for every dice
-var cnt = 0;
-var val = 1 + Math.floor(Math.random() * 80);
-var finished = false;
+let val = 1 + Math.floor(Math.random() * 80);
+var diceAttr = {
+	cnt: 0,
+	finished: false
+};
 var timeout;
 
 function rollLen() {
-    if (cnt !== val) {
+    if (diceAttr.cnt !== val) {
         timeout = setTimeout("rollLen()", 20);
-        cnt++;
+        diceAttr.cnt++;
     } else {
         clearTimeout(timeout);
-        finished = true;
+        diceAttr.finished = true;
     }
-    postMessage([cnt, finished]);
+    postMessage(diceAttr);
 }
 rollLen();

@@ -6,8 +6,9 @@ class Controller {
 
     constructor() {
         this.view = new View();
-        this.classRbSet = document.getElementsByClassName("rbSet");
+        $("#cont2").hide();
         this.initSetting();
+        this.getKeyInput();
         this.btnListener();
         this.numOfDice = 0;
     }
@@ -21,59 +22,69 @@ class Controller {
     }
 
     initSetting() {
-        (document.getElementById("dface").checked)
-            ? this.diceFace = ["\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"]
-            : this.diceFace = "123456".split("");
+        this.diceFace = (document.getElementById("dface").checked)
+            ? ["\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"]
+            : [..."123456"];
     }
 
     //read string from input field
     getKeyInput() {
-        let inputs = document.autoForm.numberM.value.split("x");
-        return inputs;
+        let xySlider = document.getElementsByClassName("xy");
+        for (var i = 0; i < xySlider.length; i++) {
+            xySlider[i].addEventListener("input", () => {
+                this.displayDices();
+            });
+        }
+    }
+
+    displayDices() {
+        this.view.createDiceMatrix($("#x").val(), $("#y").val());
+        this.numOfDice = $("#x").val() * $("#y").val();
+        $("#info").html(`Number of Dices: ${this.numOfDice}`);
+        this.initDices();
     }
 
     btnListener() {
-        for (let i = 0; i < this.classRbSet.length; i++) {
-            this.classRbSet[i].addEventListener("click", () => {
+        let classRbSet = document.getElementsByClassName("rbSet");
+        for (let i = 0; i < classRbSet.length; i++) {
+            classRbSet[i].addEventListener("click", () => {
                 this.initSetting();
             });
         }
+        
+        $('.link').click(function () {
+            $(".cont").hide();
+        })
 
-        document.getElementById("roll").addEventListener("click", () => {
+        $('#game').click(function () {
+            $("#cont1").show();
+
+        });
+        $('#test').click(function () {
+            $("#cont2").show();
+            var test = new TestWorker();
+            test.testRun();
+        });
+
+        $("#roll").click(() => {
             this.roll();
         });
-
-        document.getElementById("generateBtn").addEventListener("click", () => {
-            try {
-                let info = document.getElementById("info");
-                let mn = this.getKeyInput();
-                if (mn.length !== 2 || isNaN(mn[0]) || mn[0] === "" || isNaN(mn[1]) || mn[1] === "") {
-                    throw "input is not valid";
-                } else {
-                    this.view.createDiceMatrix(mn[0], mn[1]);
-                    this.numOfDice = mn[0] * mn[1];
-                    info.innerHTML = `Number of Dices: ${this.numOfDice}`;
-                    this.initDices();
-                }
-            } catch (error) {
-                info.innerHTML = error;
-            }
-        });
+     
     }
 
     /*every dice has its own worker to calc random roll length, no shuffle of faces required 
     => different roll length, random dice results */
     roll() {
         this.resetPts();
-        this.worker = [];
+        let worker = [];
         for (let i = 0; i < this.numOfDice; i++) {
-            this.worker[i] = new Worker("worker/webworkerRndLen.js");
+            worker[i] = new Worker("worker/webworkerRndLen.js");
         }
 
-        for (let i = 0; i < this.worker.length; i++) {
-            this.worker[i].onmessage = (event) => {
-                let face = event.data[0] % 6;
-                if (event.data[1]) {
+        for (let i = 0; i < worker.length; i++) {
+            worker[i].onmessage = (event) => {
+                let face = event.data.cnt % 6;
+                if (event.data.finished) {
                     this.view.ptsInfo(face + 1);
                 }
                 this.view.viewDice(this.diceFace[face], i);
