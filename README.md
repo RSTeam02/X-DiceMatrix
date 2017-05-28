@@ -5,7 +5,7 @@ Roll a set of x - dices in a matrix
 Every diceworker is an independent object, its randomized roll length is returned by a webworker. 
 Each dice object has same properties except of object ids and different random state. 
 
-App and Test Contents=> hide and show via jquery
+App and Test Contents=> switch between specific contents via jquery
 
 User inputs:
 

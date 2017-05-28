@@ -51,25 +51,30 @@ class Controller {
                 this.initSetting();
             });
         }
-        
-        $('.link').click(function () {
-            $(".cont").hide();
-        })
 
-        $('#game').click(function () {
-            $("#cont1").show();
+        $('a').click(function () {
+            hideAllContent();
+            showContent($(this).attr("id"));
+        });
 
-        });
-        $('#test').click(function () {
-            $("#cont2").show();
-            var test = new TestWorker();
-            test.testRun();
-        });
 
         $("#roll").click(() => {
             this.roll();
         });
-     
+
+        function hideAllContent() {
+            $(".cont").hide();
+        }
+
+        function showContent(id) {
+            if (id == "game") {
+                $("#cont1").show();
+            } else {
+                $("#cont2").show();
+                var test = new TestWorker();
+                test.testRun();
+            }
+        }
     }
 
     /*every dice has its own worker to calc random roll length, no shuffle of faces required 
