@@ -52,29 +52,39 @@ class Controller {
             });
         }
 
-        $('a').click(function () {
-            hideAllContent();
-            showContent($(this).attr("id"));
+        $('a').click((event) => {
+            this.hideAllContent();
+            this.showContent($(event.currentTarget).attr("id"));
+            this.visited(event);
         });
-
 
         $("#roll").click(() => {
             this.roll();
         });
+    }
 
-        function hideAllContent() {
-            $(".cont").hide();
+    hideAllContent() {
+        $(".cont").hide();
+    }
+
+    showContent(id) {
+        if (id == "game") {
+            $("#cont1").show();
+        } else {
+            $("#cont2").show();
+            var test = new TestWorker();
+            test.testRun();
         }
+    }
 
-        function showContent(id) {
-            if (id == "game") {
-                $("#cont1").show();
-            } else {
-                $("#cont2").show();
-                var test = new TestWorker();
-                test.testRun();
+    visited(event) {
+        let link = document.getElementsByClassName("link");
+        for (let i = 0; i < link.length; i++) {
+            if ($(event.currentTarget).attr("id") !== $(link[i]).attr("id")) {
+                $(link[i]).html(`${$(link[i]).text()}`);
             }
         }
+        $(event.currentTarget).html(`<b>${$(event.currentTarget).text()}</b>`);
     }
 
     /*every dice has its own worker to calc random roll length, no shuffle of faces required 

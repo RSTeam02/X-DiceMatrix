@@ -20,3 +20,7 @@ User inputs:
 
 + generate random number of dices
 + roll all dices and check expected sum 
+
+29.05 link highlighting:
++ highlight current visited link => loop all links inside <li>tag and unbold except of visited link, 
+target visited link turn into bold fonts
