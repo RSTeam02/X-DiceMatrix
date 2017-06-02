@@ -8,7 +8,7 @@ class Controller {
         this.view = new View();
         $("#result").html("Random Result of 0 Dices: 0");
         $("#testRes").html("Expected Test Result: 0");
-        $("#testCont").hide();     
+        this.showHideHl();
         this.initSetting();
         this.getKeyInput();
         this.btnListener();
@@ -59,21 +59,10 @@ class Controller {
         }, (event) => {
             $(event.currentTarget).html($(event.currentTarget).text());
         }).click((event) => {
-            let classLink = document.getElementsByClassName("link");
-            let classCont = document.getElementsByClassName("cont");
-            
-            for (let i = 0; i < classLink.length; i++) {
-                if (event.currentTarget.id !== classLink[i].id) {
-                    $(classLink[i])
-                        .css("font-weight", "normal")
-                        .html($(classLink[i]).text());
-                    $(classCont[i]).hide();
-                }        
-            }
+            this.showHideHl(event);
             $(event.currentTarget)
                 .css("font-weight", "bold")
-                .html($(event.currentTarget).text());            
-            $(`#${event.currentTarget.id}Cont`).show();
+                .html($(event.currentTarget).text());
         });
 
         $("#rollBtn").click(() => {
@@ -83,6 +72,23 @@ class Controller {
         $("#testBtn").click(() => {
             new TestWorker().testRun();
         });
+    }
+
+    showHideHl(event = undefined) {
+        let classCont = document.getElementsByClassName("cont");
+        let classLink = document.getElementsByClassName("link");
+        let currId = (event === undefined) ? "game" : event.currentTarget.id;
+
+        for (let i = 0; i < classLink.length; i++) {
+            if (currId === classLink[i].id) {
+                $(classCont[i]).show();
+            } else {
+                $(classLink[i])
+                    .css("font-weight", "normal")
+                    .html($(classLink[i]).text());
+                $(classCont[i]).hide();
+            }
+        }
     }
 
     /*every dice has its own worker to calc random roll length, no shuffle of faces required 

@@ -49,6 +49,7 @@
     <ul id="nav">
 		<li><a class = "link" id="game">App</a></li>        
 		<li><a class = "link" id="test">Test</a></li> 
+        <li><a class = "link" id="about">About</a></li> 
 	</ul>
     <div id="gameCont" class="cont">
         <h2>X - DiceMatrix</h2>
@@ -77,7 +78,15 @@
         <pre id ="result"></pre>
         <pre id ="testRes"></pre>
         <input type="button" value="test" id="testBtn">
-    </div>    
+    </div>
+    
+    <div id="aboutCont" class="cont">
+        <h2>About</h2>
+        <p>
+            This app is a so called "Single-Page App" that consists only of one single page. The jquery framework makes it possible
+            to simplify the content switching between main app and test program inside this page. The settings or visuals remain persistent, if you switch between the contents or until the browser is closed.    
+        </p>
+    </div>      
     
     <script src="http://requirejs.org/docs/release/1.0.8/minified/require.js" data-main="import/class.js" type="text/javascript"></script>
 </body>

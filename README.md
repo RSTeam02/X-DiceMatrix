@@ -26,6 +26,7 @@ User inputs:
 + target visited link turn into bold fonts
 
 02.06:
++ about description added
 + hide all content except of targeted
 + additional button for testing
 + hover effect with b - tag, highlight visited with css 
