@@ -9,7 +9,6 @@ class View {
     }
 
     createDiceMatrix(n, m) {
-        let row = document.getElementById("diceTable");
         let table = "";
         let diceNo = 0;
         for (let i = 0; i < m; i++) {
@@ -20,16 +19,16 @@ class View {
             }
             table += "</tr>";
         }
-        row.innerHTML = table;
+        $("#diceTable").html(table);
     }
 
     //output to dom
     viewDice(face, i) {
-        document.getElementById(`${i}`).innerHTML = face;
+        $(`#${i}`).html(face);
     }
 
     ptsInfo(pts = 0) {
         this.res += pts;
-        document.getElementById("pts").innerHTML = `${this.res} pts.`;
+        $("#pts").html(`${this.res} pts.`);
     }
 }

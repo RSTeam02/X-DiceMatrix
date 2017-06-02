@@ -1,16 +1,10 @@
-
-
-
 class TestWorker {
 
     constructor() {
         this.diceRes = [];
-        $("#result").html("");
-        $("#testRes").html("");
     }
 
     testRun() {
-
         var worker = [];
         var finishCount = 0;
         var res = 0;
@@ -42,6 +36,6 @@ class TestWorker {
         for (let i in this.diceRes) {
             sum += this.diceRes[i];
         }
-        $("#testRes").html(`Expected Test Result: ${this.diceRes.join("+")}=${sum}`);
+        $("#testRes").html(`Expected Test Result: ${this.diceRes.join("+")} = ${sum}`);
     }
 }

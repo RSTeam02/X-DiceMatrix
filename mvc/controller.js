@@ -6,7 +6,10 @@ class Controller {
 
     constructor() {
         this.view = new View();
-        $("#cont2").hide();
+        $("#result").html("Random Result of 0 Dices: 0");
+        $("#testRes").html("Expected Test Result: 0");
+        $("#testCont").hide();
+        $("#test2Cont").hide();
         this.initSetting();
         this.getKeyInput();
         this.btnListener();
@@ -51,40 +54,36 @@ class Controller {
                 this.initSetting();
             });
         }
-
-        $('a').click((event) => {
-            this.hideAllContent();
-            this.showContent($(event.currentTarget).attr("id"));
-            this.visited(event);
+        //hover effect, nav highlight, content switching
+        $('.link').hover((event) => {
+            $(event.currentTarget).html(`<b>${$(event.currentTarget).text()}</b>`);
+        }, (event) => {
+            $(event.currentTarget).html($(event.currentTarget).text());
+        }).click((event) => {
+            let classLink = document.getElementsByClassName("link");
+            let classCont = document.getElementsByClassName("cont");
+            
+            for (let i = 0; i < classLink.length; i++) {
+                if (event.currentTarget.id !== classLink[i].id) {
+                    $(classLink[i])
+                        .css("font-weight", "normal")
+                        .html($(classLink[i]).text());
+                    $(classCont[i]).hide();
+                }        
+            }
+            $(event.currentTarget)
+                .css("font-weight", "bold")
+                .html($(event.currentTarget).text());            
+            $(`#${event.currentTarget.id}Cont`).show();
         });
 
-        $("#roll").click(() => {
+        $("#rollBtn").click(() => {
             this.roll();
         });
-    }
 
-    hideAllContent() {
-        $(".cont").hide();
-    }
-
-    showContent(id) {
-        if (id == "game") {
-            $("#cont1").show();
-        } else {
-            $("#cont2").show();
-            var test = new TestWorker();
-            test.testRun();
-        }
-    }
-
-    visited(event) {
-        let link = document.getElementsByClassName("link");
-        for (let i = 0; i < link.length; i++) {
-            if ($(event.currentTarget).attr("id") !== $(link[i]).attr("id")) {
-                $(link[i]).html(`${$(link[i]).text()}`);
-            }
-        }
-        $(event.currentTarget).html(`<b>${$(event.currentTarget).text()}</b>`);
+        $("#testBtn").click(() => {
+            new TestWorker().testRun();
+        });
     }
 
     /*every dice has its own worker to calc random roll length, no shuffle of faces required 

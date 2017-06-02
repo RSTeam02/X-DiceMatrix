@@ -20,14 +20,6 @@
             font-weight: normal;
         }
 
-
-
-
-        ul#nav li a:hover{
-            font-weight: bold;
-        }
-        
-        
         ul#nav li a {
             font-size: 25px;
             color:black;
@@ -55,10 +47,10 @@
 <body>
    
     <ul id="nav">
-		<li><a class = "link" id="game">App</a></li>
-		<li><a class = "link" id="test">Test</a></li>
+		<li><a class = "link" id="game">App</a></li>        
+		<li><a class = "link" id="test">Test</a></li> 
 	</ul>
-    <div id="cont1" class="cont">
+    <div id="gameCont" class="cont">
         <h2>X - DiceMatrix</h2>
         <form name="autoForm">
             <fieldset>
@@ -72,7 +64,7 @@
                 <input class="rbSet" type="radio" id="dface" name="format" checked>diceface</input>
                 <input class="rbSet" type="radio" id="dec" name="format">integer</input>
             </fieldset>      
-            <input type="button" value="roll" id="roll">
+            <input type="button" value="roll" id="rollBtn">
         </form>
         <table id="diceTable">
 
@@ -80,12 +72,13 @@
 
         <p id="pts">0 pts.</p>
     </div>
-    <div id="cont2" class="cont">
+    <div id="testCont" class="cont">
         <h2>Test Dice Worker Objects</h2>
         <pre id ="result"></pre>
         <pre id ="testRes"></pre>
- 
-    </div>
+        <input type="button" value="test" id="testBtn">
+    </div>    
+    
     <script src="http://requirejs.org/docs/release/1.0.8/minified/require.js" data-main="import/class.js" type="text/javascript"></script>
 </body>
 

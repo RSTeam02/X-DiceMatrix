@@ -24,3 +24,8 @@ User inputs:
 29.05 link highlighting:
 + highlight current visited link => loop all li tags and unbold except of visited link 
 + target visited link turn into bold fonts
+
+02.06:
++ hide all content except of targeted
++ additional button for testing
++ hover effect with b - tag, highlight visited with css 
