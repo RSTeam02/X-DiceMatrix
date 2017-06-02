@@ -8,8 +8,7 @@ class Controller {
         this.view = new View();
         $("#result").html("Random Result of 0 Dices: 0");
         $("#testRes").html("Expected Test Result: 0");
-        $("#testCont").hide();
-        $("#test2Cont").hide();
+        $("#testCont").hide();     
         this.initSetting();
         this.getKeyInput();
         this.btnListener();
