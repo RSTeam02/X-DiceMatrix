@@ -1,11 +1,6 @@
-require.config({
-    paths: {
-        "jquery": "https://code.jquery.com/jquery-1.11.1.min"
-    }
-});
+import {Controller} from "../mvc/controller.js";
 
-
-define(["../testworker/test","jquery","../mvc/controller", "../mvc/view"], function () {
+window.onload = function() {
     
     new Controller();
-});
+}

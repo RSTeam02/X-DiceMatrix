@@ -2,7 +2,11 @@
  * @rsTeam02
  * roll n - dices => Control Unit
  */
-class Controller {
+
+import {View} from "./view.js";
+import {TestWorker} from "../testworker/test.js";
+
+export class Controller {
 
     constructor() {
         this.view = new View();

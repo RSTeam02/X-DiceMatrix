@@ -1,4 +1,4 @@
-class TestWorker {
+export class TestWorker {
 
     constructor() {
         this.diceRes = [];

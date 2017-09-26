@@ -2,7 +2,7 @@
  * @rsTeam02
  * view for matrix, points => DOM
  */
-class View {
+export class View {
 
     constructor() {
         this.res = 0;

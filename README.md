@@ -9,12 +9,15 @@ App and Test Contents=> switch between specific contents via jquery
 
 User inputs:
 
-+ replace array with json (webworker)
++ replace array "objects" with json (webworker)
 + range xy-rangesliders instead of input text (max. 10x10), generate button removed
-+ row x column
 + create tablematrix with dices
-+ random outputs of dices and pts.
-+ select integer or diceface
++ random outputs of number of dices and pts, when testing.
++ output as integer or diceface
+
+27.09: 
+
++ use native import module support of newer browsers.
 
 27.05: Test Program:
 
