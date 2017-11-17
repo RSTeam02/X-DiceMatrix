@@ -6,6 +6,7 @@ Every diceworker is an independent object, its randomized roll length is returne
 Each dice object has same properties except of object ids and different random state. 
 
 App and Test Contents=> switch between specific contents via jquery
++ test page: https://rsteam02.github.io/X-DiceMatrix/
 
 User inputs:
 
