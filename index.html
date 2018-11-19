@@ -38,6 +38,43 @@
             padding: 5px 5%;
             text-align: center;
         }
+
+        .xy {
+            -webkit-appearance: none;
+            width: 50%;
+            height: 10px;
+            border-radius: 5px;
+            background: black;
+            outline: none;
+            opacity: .5;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        .xy:hover{
+            opacity: 1;
+        }
+
+        .xy::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 30px;          
+            background: grey;
+            cursor: pointer;
+        }
+        
+        .xy::-moz-range-thumb {
+            width: 15px;
+            height: 30px;
+            background: grey;         
+            cursor: pointer;
+        }
+
+        input#dface, input#dec {
+            width: 1.5em;
+            height: 1.5em;
+        }
+       
     </style>
 </head>
 
@@ -53,8 +90,8 @@
         <form name="autoForm">
             <fieldset>
                 <legend>Enter Rastersize</legend>             
-                x-Axis: <input class="xy" type="range" min="1" max="10" value="0" id="x">
-                y-Axis: <input class="xy" type="range" min="1" max="10" value="0" id="y">        
+                x-Axis: <input class="xy" type="range" min="1" max="10" value="0" id="x"><label for="x"></label><br><br>
+                y-Axis: <input class="xy" type="range" min="1" max="10" value="0" id="y"><label for="y"></label>       
                 <div id="info"></div>
             </fieldset>
             <fieldset>
