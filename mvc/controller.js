@@ -17,6 +17,8 @@ export class Controller {
         this.getKeyInput();
         this.btnListener();
         this.numOfDice = 0;
+        this.worker=[];
+        this.addSum = false;
     }
 
     initDices() {
@@ -37,17 +39,22 @@ export class Controller {
     getKeyInput() {
         let xySlider = document.getElementsByClassName("xy");
         for (var i = 0; i < xySlider.length; i++) {
-            xySlider[i].addEventListener("input", () => {
+            xySlider[i].addEventListener("input", () => {                
                 this.displayDices();
             });
         }
     }
 
     displayDices() {
-        this.view.createDiceMatrix($("#x").val(), $("#y").val());
+        let rgx = /[a-z]*/gi
+        this.view.createDiceMatrix($("#x").val(), $("#y").val(),$("#cbStop").prop('checked'));
         this.numOfDice = $("#x").val() * $("#y").val();
         $("#info").html(`Number of Dices: ${this.numOfDice}`);
         this.initDices();
+        $(".stopSet").unbind("click");
+        $(".stopSet").click((e) => {            
+            this.stopId= parseInt(e.currentTarget.id.replace(rgx, ""));            
+        });
     }
 
     btnListener() {
@@ -57,6 +64,11 @@ export class Controller {
                 this.initSetting();
             });
         }
+
+        $("#cbStop").click(()=>{            
+            this.displayDices();
+        });
+
         //hover effect, nav highlight, content switching
         $('.link').hover((event) => {
             $(event.currentTarget).html(`<b>${$(event.currentTarget).text()}</b>`);
@@ -76,6 +88,7 @@ export class Controller {
         $("#testBtn").click(() => {
             new TestWorker().testRun();
         });
+       
     }
 
     showHideHl(event = undefined) {
@@ -99,16 +112,19 @@ export class Controller {
     => different roll length, random dice results */
     roll() {
         this.resetPts();
-        let worker = [];
+        
         for (let i = 0; i < this.numOfDice; i++) {
-            worker[i] = new Worker("worker/webworkerRndLen.js");
+            this.worker[i] = $("#cbStop").prop('checked') 
+                ? new Worker("worker/webworkerInfLen.js")
+                : new Worker("worker/webworkerRndLen.js");
         }
-
-        for (let i = 0; i < worker.length; i++) {
-            worker[i].onmessage = (event) => {
-                let face = event.data.cnt % 6;
-                if (event.data.finished) {
-                    this.view.ptsInfo(face + 1);
+        for (let i = 0; i < this.worker.length; i++) {
+            this.worker[i].onmessage = (event) => {
+                let face = event.data.cnt % 6;                
+                if (event.data.finished || this.stopId==i) {                 
+                    this.view.ptsInfo(face + 1);           
+                    this.worker[i].terminate();
+                    this.stopId = null;
                 }
                 this.view.viewDice(this.diceFace[face], i);
             }

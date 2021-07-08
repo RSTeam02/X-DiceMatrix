@@ -16,6 +16,11 @@ User inputs:
 + random outputs of number of dices and pts, when testing.
 + output as integer or diceface
 
+
+08.07.21:
+
++ added manual roll stop process for each webworker instance (dice object)
+
 27.09: 
 
 + use native import module support of newer browsers.

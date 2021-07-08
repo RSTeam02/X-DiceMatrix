@@ -8,13 +8,16 @@ export class View {
         this.res = 0;
     }
 
-    createDiceMatrix(n, m) {
+    createDiceMatrix(n, m, stop=false) {
         let table = "";
+        let btn = "";
         let diceNo = 0;
+        let stopBtn="";
         for (let i = 0; i < m; i++) {
             table += "<tr>";
             for (let j = 0; j < n; j++) {
-                table += `<td id=${diceNo}></td>`;
+                stopBtn = (stop) ?`<td><input type="button" value="stop" id="stop${diceNo}" class="stopSet"></td>`:"";
+                table += `<td id=${diceNo}></td>${stopBtn}`;
                 diceNo++;
             }
             table += "</tr>";
@@ -24,11 +27,11 @@ export class View {
 
     //output to dom
     viewDice(face, i) {
-        $(`#${i}`).html(face);
+        $(`#${i}`).html(`${face}`);
     }
 
     ptsInfo(pts = 0) {
-        this.res += pts;
+        this.res+= pts;
         $("#pts").html(`${this.res} pts.`);
     }
 }
