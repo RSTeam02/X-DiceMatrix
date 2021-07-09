@@ -8,7 +8,7 @@ var diceAttr = {
 var timeout;
 
 function rollLen() {
-    if (counter !== val) {
+    if (counter%81 !== val) {
         timeout = setTimeout("rollLen()", 50);
         counter++;
         diceAttr.cnt=counter%6;
