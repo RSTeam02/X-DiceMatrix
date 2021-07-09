@@ -7,9 +7,8 @@ var diceAttr = {
 var timeout;
 
 function rollLen() {    
-    timeout = setTimeout("rollLen()", 50);
-    diceAttr.cnt++;
-    diceAttr.cnt=diceAttr.cnt%6;
+    timeout = setTimeout("rollLen()", 75);  
+    diceAttr.cnt=(diceAttr.cnt+1)%6;
     postMessage(diceAttr);
 }
 rollLen();
