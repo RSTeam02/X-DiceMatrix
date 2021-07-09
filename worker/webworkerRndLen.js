@@ -1,6 +1,6 @@
 //calculate random roll length for every dice
 let val = 1 + Math.floor(Math.random() * 80);
-let counter = Math.floor(Math.random() * 6);
+let counter =1 + Math.floor(Math.random() * 6);
 var diceAttr = {
 	cnt: 0,
 	finished: false
