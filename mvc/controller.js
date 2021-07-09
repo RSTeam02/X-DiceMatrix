@@ -16,8 +16,7 @@ export class Controller {
         this.initSetting();
         this.getKeyInput();
         this.btnListener();
-        this.numOfDice = 0;
-        this.worker=[];
+        this.numOfDice = 0;        
         this.addSum = false;
     }
 
@@ -117,25 +116,25 @@ export class Controller {
     => different roll length, random dice results */
     roll() {
         this.resetPts();
-           
+        let worker =[];
         for (let i = 0; i < this.numOfDice; i++) {
-            this.worker[i] = $("#cbStop").prop('checked') 
+            worker[i] = $("#cbStop").prop('checked') 
                 ? new Worker("worker/webworkerInfLen.js")
                 : new Worker("worker/webworkerRndLen.js");
         }
         let workerFinished = 0;
-        for (let i = 0; i < this.worker.length; i++) {
-            this.worker[i].onmessage = (event) => {
+        for (let i = 0; i < worker.length; i++) {
+            worker[i].onmessage = (event) => {
                 let face = event.data.cnt;                
                 if (event.data.finished || this.stopId==i) {                
-                    if(workerFinished == this.worker.length-1){
+                    if(workerFinished == worker.length-1){
                         $("#rollBtn").attr("disabled", false);
                         $(".xy").attr("disabled", false);
                         $("#cbStop").attr("disabled", false);                        
                     }
                     workerFinished++;
                     this.view.ptsInfo(face + 1);           
-                    this.worker[i].terminate();
+                    worker[i].terminate();
                     this.stopId = null;              
                 }
                 this.view.viewDice(this.diceFace[face], i);
