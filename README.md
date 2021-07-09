@@ -19,7 +19,7 @@ User inputs:
 
 08.07.21:
 
-+ added manual roll stop process for each webworker instance (dice object)
++ added manual roll stopping process for each webworker instance (dice object)
 
 27.09: 
 
