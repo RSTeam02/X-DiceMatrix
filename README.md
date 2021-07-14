@@ -16,6 +16,9 @@ User inputs:
 + random outputs of number of dices and pts, when testing.
 + output as integer or diceface
 
+14.07.21:
+
++ removal of stop button(s), dice(s) itself replace(s) the button(s)
 
 08.07.21:
 

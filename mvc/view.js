@@ -15,9 +15,8 @@ export class View {
         let stopBtn="";
         for (let i = 0; i < m; i++) {
             table += "<tr>";
-            for (let j = 0; j < n; j++) {
-                stopBtn = (stop) ?`<td><input type="button" value="stop" id="stop${diceNo}" class="stopSet"></td>`:"";
-                table += `<td id=${diceNo}></td>${stopBtn}`;
+            for (let j = 0; j < n; j++) {                
+                table += `<td id="dice${diceNo}" class="diceSet"></td>`;
                 diceNo++;
             }
             table += "</tr>";
@@ -27,7 +26,7 @@ export class View {
 
     //output to dom
     viewDice(face, i) {
-        $(`#${i}`).html(`${face}`);
+        $(`#dice${i}`).html(`${face}`);
     }
 
     ptsInfo(pts = 0) {

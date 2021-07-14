@@ -50,9 +50,16 @@ export class Controller {
         this.numOfDice = $("#x").val() * $("#y").val();
         $("#info").html(`Number of Dices: ${this.numOfDice}`);
         this.initDices();
-        $(".stopSet").unbind("click");
-        $(".stopSet").click((e) => {            
+        $(".diceSet").unbind("click");
+        $(".diceSet").css("user-select","none");
+        $(".diceSet").mousedown((e) => {            
             this.stopId= parseInt(e.currentTarget.id.replace(rgx, ""));            
+        });
+        $(".diceSet").hover(function(){            
+            $(this).css("cursor","pointer");
+            $(this).css("color","orange");
+        },function(){
+            $(this).css("color","black");
         });
     }
 
@@ -62,7 +69,7 @@ export class Controller {
             classRbSet[i].addEventListener("click", () => {
                 this.initSetting();
             });
-        }
+        }        
 
         $("#cbStop").click(()=>{            
             this.displayDices();
