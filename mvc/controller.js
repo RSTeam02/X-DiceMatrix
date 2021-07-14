@@ -49,8 +49,7 @@ export class Controller {
         this.view.createDiceMatrix($("#x").val(), $("#y").val(),$("#cbStop").prop('checked'));
         this.numOfDice = $("#x").val() * $("#y").val();
         $("#info").html(`Number of Dices: ${this.numOfDice}`);
-        this.initDices();
-        $(".diceSet").unbind("click");
+        this.initDices();        
         $(".diceSet").css("user-select","none");
         $(".diceSet").mousedown((e) => {            
             this.stopId= parseInt(e.currentTarget.id.replace(rgx, ""));            
@@ -71,10 +70,6 @@ export class Controller {
             });
         }        
 
-        $("#cbStop").click(()=>{            
-            this.displayDices();
-        });
-
         //hover effect, nav highlight, content switching
         $('.link').hover((event) => {
             $(event.currentTarget).html(`<b>${$(event.currentTarget).text()}</b>`);
@@ -88,6 +83,7 @@ export class Controller {
         });
 
         $("#rollBtn").click(() => {
+            this.displayDices();
             this.roll();
             if(this.numOfDice >0){
                 $("#rollBtn").attr("disabled", true);
@@ -124,8 +120,9 @@ export class Controller {
     roll() {
         this.resetPts();
         let worker =[];
+        let cbStop = $("#cbStop").prop('checked');
         for (let i = 0; i < this.numOfDice; i++) {
-            worker[i] = $("#cbStop").prop('checked') 
+            worker[i] = (cbStop)
                 ? new Worker("worker/webworkerInfLen.js")
                 : new Worker("worker/webworkerRndLen.js");
         }
@@ -133,11 +130,12 @@ export class Controller {
         for (let i = 0; i < worker.length; i++) {
             worker[i].onmessage = (event) => {
                 let face = event.data.cnt;                
-                if (event.data.finished || this.stopId==i) {                
+                if (event.data.finished || this.stopId==i && cbStop) {                
                     if(workerFinished == worker.length-1){
                         $("#rollBtn").attr("disabled", false);
                         $(".xy").attr("disabled", false);
-                        $("#cbStop").attr("disabled", false);                        
+                        $("#cbStop").attr("disabled", false);
+                        $(".diceSet").unbind("mousedown");                        
                     }
                     workerFinished++;
                     this.view.ptsInfo(face + 1);           
